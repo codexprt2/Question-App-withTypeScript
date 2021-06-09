@@ -34,7 +34,15 @@ const App = () => {
 
 	return (
 		<div className='App'>
-			<div>{questions?.articles.map((item) => item.title)}</div>
+			<div>
+				{questions?.articles.map((item, index) => (
+					<div key={index}>
+						<a href={item.url} target='_blank'>
+							{item.title}
+						</a>
+					</div>
+				))}
+			</div>
 		</div>
 	);
 };
