@@ -26,11 +26,8 @@ const App = () => {
 			)
 			.then((response: any) => {
 				setQuestions(response.data);
-				console.log(",,,,", response.data);
 			});
 	}, []);
-
-	console.log("questions", questions ? questions.articles : "abc");
 
 	return (
 		<div className='App'>
