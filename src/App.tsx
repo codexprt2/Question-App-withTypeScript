@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "./App.css";
-import axios, { AxiosResponse } from "axios";
-import QuestionCard from "./component/QuestionCard";
-import { type } from "os";
+import axios from "axios";
+
+// Styles
+import { GlobalStyle } from "./App.styles";
+
+import QuestionCard from "./components/QuestionCard";
 
 //Types
 type article = { source: string; author: string; title: string; url: string };
@@ -16,31 +18,30 @@ type Questions = {
 const App = () => {
 	const [questions, setQuestions] = useState<Questions>();
 
-	const number = 0;
-
 	useEffect(() => {
 		// Update the document title using the browser API
 		axios
 			.get<Questions>(
-				"https://newsapi.org/v2/everything?q=tesla&from=2021-05-09&sortBy=publishedAt&apiKey=e0d88ee7842a4a1b8c7b90b0cd184dd7"
+				"https://saurav.tech/NewsAPI/top-headlines/category/health/in.json"
 			)
 			.then((response: any) => {
 				setQuestions(response.data);
+				console.log(response.data);
 			});
 	}, []);
 
 	return (
-		<div className='App'>
+		<>
+			<GlobalStyle />
+			<h1>Question List</h1>
 			<div>
 				{questions?.articles.map((item, index) => (
 					<div key={index}>
-						<a href={item.url} target='_blank'>
-							{item.title}
-						</a>
+						<QuestionCard title={item.title} url={item.url} />
 					</div>
 				))}
 			</div>
-		</div>
+		</>
 	);
 };
 
